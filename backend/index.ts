@@ -1,8 +1,8 @@
 import { Hono } from "hono";
 
 import NotFoundHandler from "./controller/status/notFound";
-import TestHandler from "./controller/test/test";
 import OnErrorHandler from "./controller/status/onError";
+import TestHandler from "./controller/test/test";
 
 const app = new Hono().basePath("/api");
 
