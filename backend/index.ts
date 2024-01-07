@@ -1,7 +1,7 @@
 import { Hono } from "hono";
 
 import NotFoundHandler from "./controller/status/notFound";
-import TestHandler from "./controller/test";
+import TestHandler from "./controller/test/test";
 import OnErrorHandler from "./controller/status/onError";
 
 const app = new Hono().basePath("/api");
@@ -12,3 +12,4 @@ OnErrorHandler(app);
 
 export default app;
 export type RPC = typeof app;
+export type byPath<T extends string = "/"> = T;

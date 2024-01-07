@@ -2,6 +2,7 @@
 Hono x Next.js (App Router) x RadixUI x Shadcn UI x TailwindCSS x Gsap x Three.js
 
 pkg: pnpm
+testing: jest
 
 0代目: [amex.deno.dev](https://amex.deno.dev)
   - Fresh (Deno)
