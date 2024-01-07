@@ -1,5 +1,7 @@
 # ame-x.net.v2
-Nest.js x Next.js (App Router) x RadixUI x Shadcn UI x TailwindCSS x Gsap x Three.js
+Hono x Next.js (App Router) x RadixUI x Shadcn UI x TailwindCSS x Gsap x Three.js
+
+`packageManager: pnpm`
 
 0代目: [amex.deno.dev](https://amex.deno.dev)
   - Fresh (Deno)
@@ -17,7 +19,7 @@ Nest.js x Next.js (App Router) x RadixUI x Shadcn UI x TailwindCSS x Gsap x Thre
 ## Techs
 
 - Backend
-  - Nest.js (Honoと迷った)
+  - Hono
 - FrontEnd
   - Base
     - Next.js
