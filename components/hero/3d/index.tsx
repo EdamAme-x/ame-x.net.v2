@@ -7,7 +7,7 @@ import Base from "./base";
 
 export function Hero3D() {
 	return (
-		<div className="w-1/2 h-full transform-gpu scale-150">
+		<div className="w-1/2 h-full">
 			<Canvas
 				flat
 				shadows
