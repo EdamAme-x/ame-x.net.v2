@@ -1,7 +1,8 @@
-import { Label } from "@/components/ui/label";
-import { Badge } from "@/components/ui/badge";
-import { Hero3D } from "./3d";
 import { FaArrowRight } from "react-icons/fa";
+
+import { Badge } from "@/components/ui/badge";
+import { Label } from "@/components/ui/label";
+import { Hero3D } from "./3d";
 
 export function Hero() {
 	return (

@@ -7,7 +7,7 @@ export type GlobalErrorResponse = {
 	};
 };
 
-export default async function Handler(app: Hono) {
+export default function Handler(app: Hono) {
 	app.onError(async (err: Error, c: Context) => {
 		return c.json<GlobalErrorResponse>({
 			error: {
