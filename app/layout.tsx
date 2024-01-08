@@ -16,11 +16,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 	return (
 		<html lang="ja">
 			<body className={inter.className} id={getIP()}>
-					<FakeComponents>
-						<ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-							<Layout>{children}</Layout>
-						</ThemeProvider>
-					</FakeComponents>
+				<FakeComponents>
+					<ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+						<Layout>{children}</Layout>
+					</ThemeProvider>
+				</FakeComponents>
 			</body>
 		</html>
 	);
