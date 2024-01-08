@@ -74,3 +74,18 @@
     @apply bg-background text-foreground;
   }
 }
+
+body {
+  scrollbar-width: 0;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+.text-gradient {
+  background: linear-gradient(to right, #ff8a00, #e52e71);
+  -webkit-background-clip: text;
+  background-clip: text; 
+  color: transparent;
+}
