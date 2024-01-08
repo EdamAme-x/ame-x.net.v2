@@ -1,6 +1,7 @@
 import Image from "next/image";
 
 import { ThemeToggle } from "@/components/layout/theme/themeToggle";
+import { Hamburger } from "./hamburger/Hamburger";
 
 export function Header() {
 	return (
@@ -14,7 +15,10 @@ export function Header() {
 					className="filter brightness-150 blur-2 drop-shadow-2xl drop-shadow-white"
 				/>
 			</div>
-			<ThemeToggle />
+			<div className="flex space-x-2">
+				<Hamburger />
+				<ThemeToggle />
+			</div>
 		</header>
 	);
 }
