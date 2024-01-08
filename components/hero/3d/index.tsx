@@ -7,7 +7,7 @@ import Base from "./base";
 
 export function Hero3D() {
 	return (
-		<div className="w-1/2 h-full">
+		<div className="w-1/2 h-full transform-gpu scale-150">
 			<Canvas
 				flat
 				shadows
@@ -19,8 +19,8 @@ export function Hero3D() {
 				camera={{
 					fov: 45,
 					near: 0.1,
-					far: 100,
-					position: [0, 0, 4]
+					far: 45,
+					position: [0, 0, 6]
 				}}>
 				<Base />
 			</Canvas>
