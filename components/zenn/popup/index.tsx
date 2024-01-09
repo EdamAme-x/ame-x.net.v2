@@ -8,11 +8,11 @@ export function ZennPopup(
         getArticle: () => Promise<Article>,
         closeCallback: Function
     }
-) {} // logic
+) {} // logic promise async
 
 export function ZennPopupFallback() {
     return <></>
-}
+} // skelton
 
 export async function ZennPopupContent({
     article,
