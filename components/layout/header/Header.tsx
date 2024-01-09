@@ -5,7 +5,7 @@ import { Hamburger } from "./hamburger/Hamburger";
 
 export function Header() {
 	return (
-		<header className="p-2 h-[60px] w-full flex justify-between items-center">
+		<header className="p-2 h-[60px] w-full flex justify-between items-center relative z-[7]">
 			<div>
 				<Image
 					src="/favicon.png"
