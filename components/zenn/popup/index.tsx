@@ -12,7 +12,7 @@ export function ZennPopup(
 
 export function ZennPopupFallback() {
     return <></>
-} // skelton
+} // skelton :thinking:
 
 export async function ZennPopupContent({
     article,
