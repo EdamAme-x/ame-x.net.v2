@@ -15,6 +15,7 @@ export function LatestArticle() {
 
     const getLatestArticle = async () => {
         const result = await client.zenn.getLatestArticles.$get();
+        // Suspense <=> state
     }
 
 	return (

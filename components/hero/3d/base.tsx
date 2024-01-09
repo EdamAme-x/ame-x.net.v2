@@ -31,7 +31,7 @@ const Base = () => {
 			{isDev && <Perf position="top-left" />}
 
 			{/* 環境光 */}
-			<ambientLight intensity={0.6} />
+			<ambientLight intensity={1.2} />
 
 			{/* 平行光 */}
 			<directionalLight
