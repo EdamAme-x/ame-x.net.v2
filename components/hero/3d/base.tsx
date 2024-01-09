@@ -44,7 +44,7 @@ const Base = () => {
 
 			<group position={[-1, 1, 0]}>
 				{/* 球体 */}
-				<mesh castShadow position={[-0.5, -0.25, 0.25]} scale={0.3}>
+				<mesh castShadow position={[-0.5, -0.25, 0.25]} scale={1.3}>
 					<sphereGeometry />
 					<meshStandardMaterial color="orange" />
 				</mesh>

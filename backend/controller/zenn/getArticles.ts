@@ -26,28 +26,41 @@ export type Article = {
 		avatar_small_url: string;
 	};
 	publication: null | unknown;
-    proxy: {
-        url: string,
-        avatar_url: string,
-        date: string
-    }
+	proxy: {
+		url: string;
+		avatar_url: string;
+		date: string;
+	};
 };
 
 export default function Handler(app: Hono) {
-	app.get("/zenn/getArticles", async (c: Context) => {
+	return app.get("/zenn/getArticles", async (c: Context) => {
 		const resp = await fetch(apiEndpoint);
 		const data = await resp.json();
 		const articles: Article[] = data.articles;
-        articles.map((article) => {
-            article.proxy = {
-                url: `https://zenn.dev/${article.user.username}/articles/${article.slug}`,
-                avatar_url: article.user.avatar_small_url,
-                date: new Date(article.published_at).toLocaleString(
-                    "ja-JP"
-                )
-            }
-        })
+		articles.map(article => {
+			article.proxy = {
+				url: `https://zenn.dev/${article.user.username}/articles/${article.slug}`,
+				avatar_url: article.user.avatar_small_url,
+				date: new Date(article.published_at).toLocaleString("ja-JP")
+			};
+		});
 
 		return c.json(articles);
+	}).get("/zenn/getLatestArticles", async (c: Context) => {
+		const resp = await fetch(apiEndpoint);
+		const data = await resp.json();
+		const articles: Article[] = data.articles;
+		articles.map(article => {
+			article.proxy = {
+				url: `https://zenn.dev/${article.user.username}/articles/${article.slug}`,
+				avatar_url: article.user.avatar_small_url,
+				date: new Date(article.published_at).toLocaleString("ja-JP")
+			};
+		});
+
+		const article: Article = articles[0];
+
+		return c.json(article);
 	});
 }

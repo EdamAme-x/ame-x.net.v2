@@ -7,11 +7,13 @@ import ZennGetArticlesHandler from "./controller/zenn/getArticles";
 
 const app = new Hono().basePath("/api");
 
-TestHandler(app);
 NotFoundHandler(app);
 OnErrorHandler(app);
-ZennGetArticlesHandler(app);
 
-export default app;
-export type RPC = typeof app;
+const zenn = ZennGetArticlesHandler(app);
+export type zennRPC = typeof zenn;
+
+const test = TestHandler(app);
+export type testRPC = typeof test;
+
 export type byPath<T extends string = "/"> = T;
