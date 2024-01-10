@@ -36,9 +36,7 @@ export function ZennPopup({
 export function ZennPopupFallback() {
 	return (
 		<>
-			<div className="w-[100px] h-[100px] flex justify-center items-center mx-auto text-6xl mt-5 mb-3">
-				🤔
-			</div>
+			<div className="w-[100px] h-[100px] flex justify-center items-center mx-auto text-6xl mt-5 mb-3">🤔</div>
 			<Label className="mx-5 text-xl font-mono">Loading...</Label>
 			<Label className="mx-5 text-xl inline-flex items-center justify-start space-x-4">
 				<div className="inline-flex items-center space-x-3">
@@ -53,7 +51,7 @@ export function ZennPopupFallback() {
 					<FaClock /> <Label>{new Date().toLocaleString()}</Label>
 				</div>
 			</Label>
-            <Button className="mx-5">Read</Button>
+			<Button className="mx-5">Read</Button>
 		</>
 	);
 }
@@ -61,10 +59,10 @@ export function ZennPopupFallback() {
 export function ZennPopupContent({ getArticle }: { getArticle: () => Promise<Article> }) {
 	const result = getArticle();
 
-    const openArticle = async () => {
-        const article = await result;
-        window.open(article.proxy.url, "_blank");
-    }
+	const openArticle = async () => {
+		const article = await result;
+		window.open(article.proxy.url, "_blank");
+	};
 
 	return (
 		<>
@@ -88,7 +86,9 @@ export function ZennPopupContent({ getArticle }: { getArticle: () => Promise<Art
 					<FaClock /> <Label>{result.then(article => article.proxy.date) as unknown as string}</Label>
 				</div>
 			</Label>
-			<Button className="mx-5" onClick={() => openArticle()}>Read</Button>
+			<Button className="mx-5" onClick={() => openArticle()}>
+				Read
+			</Button>
 		</>
 	);
 }

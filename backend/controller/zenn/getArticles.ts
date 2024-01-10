@@ -93,12 +93,7 @@ export default function Handler(app: Hono) {
 					"sec-fetch-mode": "cors",
 					"sec-fetch-site": "same-origin"
 				},
-				referrer: "https://zenn.dev/" + ProjectConfig.zennId + "/articles/" + data.slug,
-				referrerPolicy: "strict-origin-when-cross-origin",
-				body: null,
-				method: "GET",
-				mode: "cors",
-				credentials: "include"
+				referrer: "https://zenn.dev/" + ProjectConfig.zennId + "/articles/" + data.slug
 			});
 
 			return c.json((await resp.json())["article"]);

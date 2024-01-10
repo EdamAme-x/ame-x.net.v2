@@ -32,5 +32,9 @@ export const SNS: SNSContext = [
 	{
 		path: `https://discord.gg/${ProjectConfig.discordId}`,
 		title: "Discord"
+	},
+	{
+		path: `https://zenn.dev/${ProjectConfig.zennId}`,
+		title: "Zenn"
 	}
 ];
