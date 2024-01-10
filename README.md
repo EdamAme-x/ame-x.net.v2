@@ -32,7 +32,6 @@ type: global
     - Shadcn UI
     - Tailwind CSS
     - Three.js
-  - UX
+    - Gsap
+  - and more
     - please look package.json :)
-
-**Astro**は便利すぎるのでフルスクラッチする
