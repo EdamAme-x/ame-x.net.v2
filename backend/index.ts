@@ -17,3 +17,4 @@ const test = TestHandler(app);
 export type testRPC = typeof test;
 
 export type byPath<T extends string = "/"> = T;
+export default app;

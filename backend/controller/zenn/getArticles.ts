@@ -34,33 +34,73 @@ export type Article = {
 };
 
 export default function Handler(app: Hono) {
-	return app.get("/zenn/getArticles", async (c: Context) => {
-		const resp = await fetch(apiEndpoint);
-		const data = await resp.json();
-		const articles: Article[] = data.articles;
-		articles.map(article => {
-			article.proxy = {
-				url: `https://zenn.dev/${article.user.username}/articles/${article.slug}`,
-				avatar_url: article.user.avatar_small_url,
-				date: new Date(article.published_at).toLocaleString("ja-JP")
-			};
+	return app
+		.get("/zenn/getArticles", async (c: Context) => {
+			const resp = await fetch(apiEndpoint);
+			const data = await resp.json();
+			const articles: Article[] = data.articles;
+			articles.map(article => {
+				article.proxy = {
+					url: `https://zenn.dev/${article.user.username}/articles/${article.slug}`,
+					avatar_url: article.user.avatar_small_url,
+					date: new Date(article.published_at).toLocaleString("ja-JP")
+				};
+			});
+
+			return c.json(articles);
+		})
+		.get("/zenn/getLatestArticles", async (c: Context) => {
+			const resp = await fetch(apiEndpoint);
+			const data = await resp.json();
+			const articles: Article[] = data.articles;
+			articles.map(article => {
+				article.proxy = {
+					url: `https://zenn.dev/${article.user.username}/articles/${article.slug}`,
+					avatar_url: article.user.avatar_small_url,
+					date: new Date(article.published_at).toLocaleString("ja-JP")
+				};
+			});
+
+			const article: Article = articles[0];
+
+			return c.json(article);
+		})
+		.post("/zenn/getArticleInfo", async (c: Context) => {
+			const data = await c.req.json<{
+				slug: string;
+			}>();
+
+			if (!data.slug) {
+				return c.json(
+					{
+						error: "slug is required"
+					},
+					{
+						status: 400
+					}
+				);
+			}
+
+			const resp = await fetch("https://zenn.dev/api/articles/" + data.slug, {
+				headers: {
+					accept: "*/*",
+					"accept-language": "ja,en-US;q=0.9,en;q=0.8",
+					"content-type": "application/json",
+					"sec-ch-ua": '"Not_A Brand";v="8", "Chromium";v="120", "Google Chrome";v="120"',
+					"sec-ch-ua-mobile": "?0",
+					"sec-ch-ua-platform": '"Windows"',
+					"sec-fetch-dest": "empty",
+					"sec-fetch-mode": "cors",
+					"sec-fetch-site": "same-origin"
+				},
+				referrer: "https://zenn.dev/" + ProjectConfig.zennId + "/articles/" + data.slug,
+				referrerPolicy: "strict-origin-when-cross-origin",
+				body: null,
+				method: "GET",
+				mode: "cors",
+				credentials: "include"
+			});
+
+			return c.json((await resp.json())["article"]);
 		});
-
-		return c.json(articles);
-	}).get("/zenn/getLatestArticles", async (c: Context) => {
-		const resp = await fetch(apiEndpoint);
-		const data = await resp.json();
-		const articles: Article[] = data.articles;
-		articles.map(article => {
-			article.proxy = {
-				url: `https://zenn.dev/${article.user.username}/articles/${article.slug}`,
-				avatar_url: article.user.avatar_small_url,
-				date: new Date(article.published_at).toLocaleString("ja-JP")
-			};
-		});
-
-		const article: Article = articles[0];
-
-		return c.json(article);
-	});
 }
