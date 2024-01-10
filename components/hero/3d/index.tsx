@@ -71,6 +71,7 @@ export function Hero3D() {
 
     return () => {
       if (rootRef.current) {
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         rootRef.current.removeEventListener('click', handleShuffleAndRoulette);
       }
     };
