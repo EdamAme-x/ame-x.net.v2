@@ -5,6 +5,19 @@ import Image from "next/image";
 import { allSameValue } from "@/utils/array/allSameValue";
 import { isClient } from "@/utils/fingerprint/isClient";
 
+import {
+	AlertDialog,
+	AlertDialogAction,
+	AlertDialogCancel,
+	AlertDialogContent,
+	AlertDialogDescription,
+	AlertDialogFooter,
+	AlertDialogHeader,
+	AlertDialogTitle,
+	AlertDialogTrigger
+} from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
+
 const size = 90;
 const images = [
 	"/icon/3d/javascript.3d.svg",
@@ -18,7 +31,7 @@ const images = [
 let slot = 4;
 
 if (isClient()) {
-	if (window.innerWidth < 768) {
+	if (window.innerWidth < 977) {
 		slot = 3;
 	}
 }
@@ -78,13 +91,71 @@ export function Hero3D() {
 
 	return (
 		<div
-			className="w-screen absolute z-[5] sm:relative sm:w-1/2 sm:z-[3] h-full flex justify-center items-end sm:items-center select-none"
+			className="w-screen hidden sm:w-1/2 h-[75vh] sm:flex flex-col justify-center items-center sm:items-center select-none"
 			ref={rootRef}>
-			<div className="relative flex place-items-center before:absolute before:h-[100px] before:w-full before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[80px] after:w-2/3 after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-50 before:lg:h-[360px] z-[-1]">
+			<div className="relative flex place-items-center before:absolute before:h-[100px] before:w-full before:-translate-x-2/3 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[80px] after:w-2/3 after:translate-x-2/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-50 before:lg:h-[360px] z-[-1]">
 				{result.map((image: string, index: number) => (
 					<Image src={image} width={size} height={size} alt="icon" key={index} />
 				))}
 			</div>
+			{!isRouletting && (
+				<AlertDialog>
+					<AlertDialogTrigger className="mt-3">
+						<Button>Complete</Button>
+					</AlertDialogTrigger>
+					<AlertDialogContent>
+						<AlertDialogHeader>
+							<AlertDialogTitle>You have aligned the slots!</AlertDialogTitle>
+							<AlertDialogDescription>
+								It{"'"}s amazing! What you have aligned in the slot is the{" "}
+								{result[0]
+									.split("/")
+									.pop()
+									?.split(".")[0]
+									.split("")
+									.map((string, index) => {
+										if (index === 0) {
+											return string.toUpperCase();
+										}
+
+										return string;
+									})
+									.join("")}
+								. <br />
+								Share on Twitter!
+							</AlertDialogDescription>
+						</AlertDialogHeader>
+						<AlertDialogFooter>
+							<AlertDialogCancel>Cancel</AlertDialogCancel>
+							<AlertDialogAction
+								onClick={() => {
+									window.open(
+										`https://twitter.com/intent/tweet?text=${encodeURIComponent(`@amex2189
+私は ${result[0]
+											.split("/")
+											.pop()
+											?.split(".")[0]
+											.split("")
+											.map((string, index) => {
+												if (index === 0) {
+													return string.toUpperCase();
+												}
+												return string;
+											})
+											.join("")} を揃えました！
+
+↓ スロットにチャレンジする
+https://ame-x.net
+`)}`,
+										"_blank"
+									);
+								}}>
+								Share
+							</AlertDialogAction>
+						</AlertDialogFooter>
+					</AlertDialogContent>
+				</AlertDialog>
+			)}
 		</div>
 	);
 }
