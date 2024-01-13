@@ -2,13 +2,13 @@
   "name": "ame-x.net.v2",
   "version": "0.1.0",
   "private": false,
-  "packageManager": "pnpm",
+  "packageManager": "pnpm@8.6.2",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "prettier --write ./app/**/*.{js,jsx,ts,tsx,mdx,json} && prettier --write ./components/**/*.{js,jsx,ts,tsx,mdx,json} && prettier --write ./backend/**/*.{js,jsx,ts,tsx,mdx,json} && prettier --write ./utils/**/*.{js,jsx,ts,tsx,mdx,json} && prettier --write ./lib/**/*.{js,jsx,ts,tsx,mdx,json}",
+    "format": "prettier --write ./app/**/*.{js,jsx,ts,tsx,mdx,json} && prettier --write ./components/**/*.{js,jsx,ts,tsx,mdx,json} && prettier --write ./backend/**/*.{js,jsx,ts,tsx,mdx,json} && prettier --write ./utils/**/*.{js,jsx,ts,tsx,mdx,json} && prettier --write ./lib/**/*.{js,jsx,ts,tsx,mdx,json} && prettier --write ./data/**/*.{js,jsx,ts,tsx,mdx,json}",
     "cn:add": "pnpx shadcn-ui@latest add button",
     "test": "jest --testPathPattern=__test__",
     "test:watch": "jest --watch --testPathPattern=__test__"

@@ -2,7 +2,9 @@
 
 import { useEffect, useRef } from "react";
 import Image from "next/image";
+import { candoList } from "@/data/cando";
 import { cn } from "@/lib";
+import { Label } from "@radix-ui/react-dropdown-menu";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 
@@ -21,12 +23,15 @@ export function Parallax() {
 					<CardContent className="w-full flex justify-center items-center">
 						<Carousel className="w-full max-w-xs">
 							<CarouselContent>
-								{Array.from({ length: 5 }).map((_, index) => (
+								{candoList.map((cando, index) => (
 									<CarouselItem key={index}>
 										<div className="p-1">
 											<Card>
-												<CardContent className="flex aspect-square items-center justify-center p-6">
-													<span className="text-4xl font-semibold">{index + 1}</span>
+												<CardContent className="flex flex-col justify-center aspect-square">
+													<Label className="text-xl font-bold mt-4">{cando.title}</Label>
+													<hr className="mt-1" />
+													<div className="mt-3 text-sm leading-5">{cando.description}</div>
+													<div className="mt-auto">{cando.button}</div>
 												</CardContent>
 											</Card>
 										</div>
