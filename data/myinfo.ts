@@ -6,7 +6,7 @@ export const MyInfo = {
 	url: ProjectConfig.url,
 	twitterId: `@${ProjectConfig.twitterId}`,
 	githubId: `@${ProjectConfig.githubId}`,
-	discordId: `@${ProjectConfig.discordId}`,
+	discordId: `@${ProjectConfig.discordUserId}`,
 	zennId: `@${ProjectConfig.zennId}`,
 	message: "please follow me on Twitter @amex2189 :)",
 	height: "82161242827b703e6acf9c726942a1e4",

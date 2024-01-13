@@ -1,6 +1,7 @@
 "use client";
 
 import { Fragment, useEffect, useState } from "react";
+import { parseCurlToRequest } from "@/utils/parse/parseCurlToFetch";
 import Terminal, { ColorMode, TerminalOutput } from "react-terminal-ui";
 
 import { isClient } from "./../../../utils/fingerprint/isClient";
@@ -67,7 +68,7 @@ function ShellTerminal() {
 					break;
 				}
 
-                const base = `cowsay ${cowsay}
+				const base = `cowsay ${cowsay}
 ${" " + `-`.repeat(len + 2)}
 < ${cowsay} >
 ${" " + `-`.repeat(len + 2)}
@@ -79,46 +80,133 @@ ${" " + `-`.repeat(len + 2)}
 
 				setTerminalLineData([
 					...terminalLineData,
-                    ...base.split("\n").map((line, index) => (
-                        <Fragment key={terminalLineData.length + 1 + index}>
-                            <TerminalOutput>{line}</TerminalOutput>
-                        </Fragment>
-                    ))
+					...base.split("\n").map((line, index) => (
+						<Fragment key={terminalLineData.length + 1 + index}>
+							<TerminalOutput>{line}</TerminalOutput>
+						</Fragment>
+					))
 				]);
 
-                break;
-            case 'node' || 'deno' || 'bun':
-                const code = latestCommand.split(' ');
-                code.shift();
+				break;
+			case "deno":
+			case "bun":
+			case "node":
+				const code = latestCommand.split(" ");
+				code.shift();
 
-                if (code.join(' ').trim() === "") {
-                    setTerminalLineData([
-                        ...terminalLineData,
-                        <Fragment key={terminalLineData.length + 1}>
-                            <TerminalOutput>{`Amex shell: e.g.: \`${latestCommand.split(" ")[0]} console.log("hello")\` :(`}</TerminalOutput>
-                        </Fragment>
-                    ])
-                    break;
-                }
+				if (code.join(" ").trim() === "") {
+					setTerminalLineData([
+						...terminalLineData,
+						<Fragment key={terminalLineData.length + 1}>
+							<TerminalOutput>{`Amex shell: e.g.: \`${
+								latestCommand.split(" ")[0]
+							}  11 * 199\` :(`}</TerminalOutput>
+						</Fragment>
+					]);
+					break;
+				}
 
-                let result = ""
-                try {
-                    result = new Function("return" + code.join(' '))();
-                }catch (e) {
-                    result = "Error :("
-                }
+				let result = "";
+				try {
+					result = new Function("return " + code.join(" "))();
+				} catch (e) {
+					result = "Error :(";
+					result += `\ne.g.: \`${latestCommand.split(" ")[0]}  11 * 199\` :(`;
+				}
 
-                setTerminalLineData([
-                    ...terminalLineData,
-                    <Fragment key={terminalLineData.length + 1}>
-                        <TerminalOutput>{`fake ${latestCommand.split(" ")[0]} version: -1.0 :(`}</TerminalOutput>
-                    </Fragment>,
-                    <Fragment key={terminalLineData.length + 2}>
-                        <TerminalOutput>{result.toString()}</TerminalOutput>
-                    </Fragment>
-                ])
+				setTerminalLineData([
+					...terminalLineData,
+					<Fragment key={terminalLineData.length + 1}>
+						<TerminalOutput>{`fake ${latestCommand.split(" ")[0]} version: -1.0 :(`}</TerminalOutput>
+					</Fragment>,
+					<Fragment key={terminalLineData.length + 2}>
+						<TerminalOutput>{result.toString()}</TerminalOutput>
+					</Fragment>
+				]);
 
-                break;
+				break;
+			case "reload":
+				window.location.reload();
+				break;
+			case "echo":
+				const echoArray = latestCommand.split("echo ");
+				echoArray.shift();
+				const echo = echoArray.join("echo ");
+				setTerminalLineData([
+					...terminalLineData,
+					<Fragment key={terminalLineData.length + 1}>
+						<TerminalOutput>{echo}</TerminalOutput>
+					</Fragment>
+				]);
+
+				break;
+			case "whoami":
+				setTerminalLineData([
+					...terminalLineData,
+					<Fragment key={terminalLineData.length + 1}>
+						<TerminalOutput>{document.body.id ?? "Real"}</TerminalOutput>
+					</Fragment>
+				]);
+				break;
+			case "curl":
+				const curlText = latestCommand;
+				let req: Request = new Request("https://ame-x.net", {});
+
+				try {
+					req = parseCurlToRequest(curlText);
+				} catch (_e) {
+					setTerminalLineData([
+						...terminalLineData,
+						<Fragment key={terminalLineData.length + 1}>
+							<TerminalOutput>{`Amex shell: \`${curlText}\` is in a wrong format :(`}</TerminalOutput>
+						</Fragment>
+					]);
+					break;
+				}
+
+				fetch(req.url, {
+					...req
+				})
+					.then(res => {
+						if (res.ok) {
+                            res.text().then(text => {
+                                try {
+                                    const result = JSON.parse(text);
+
+                                    setTerminalLineData([
+                                        ...terminalLineData,
+                                        <Fragment key={terminalLineData.length + 1}>
+                                            <TerminalOutput>{JSON.stringify(result, null, 2)}</TerminalOutput>
+                                        </Fragment>
+                                    ])
+                                } catch (_e) {
+                                    setTerminalLineData([
+                                        ...terminalLineData,
+                                        <Fragment key={terminalLineData.length + 1}>
+                                            <TerminalOutput>{text}</TerminalOutput>
+                                        </Fragment>
+                                    ]);
+                                }
+                            })
+						} else {
+							setTerminalLineData([
+								...terminalLineData,
+								<Fragment key={terminalLineData.length + 1}>
+									<TerminalOutput>{`Amex shell: bad status code: ${res.status} :(`}</TerminalOutput>
+								</Fragment>
+							]);
+						}
+					})
+					.catch(_e => {
+						setTerminalLineData([
+							...terminalLineData,
+							<Fragment key={terminalLineData.length + 1}>
+								<TerminalOutput>{`Amex shell: ANY ERROR ;; (CORS, Redirect, etc...)`}</TerminalOutput>
+							</Fragment>
+						]);
+					});
+
+				break;
 			default:
 				setTerminalLineData([
 					...terminalLineData,
@@ -131,7 +219,7 @@ ${" " + `-`.repeat(len + 2)}
 	}
 
 	return (
-		<div className="container w-3/4 h-[200px] overflow-y-none opacity-[0.85]">
+		<div className="container w-3/4 h-[200px] overflow-y-none opacity-[0.8]">
 			<Terminal
 				name="Amex Shell"
 				colorMode={ColorMode.Dark}
