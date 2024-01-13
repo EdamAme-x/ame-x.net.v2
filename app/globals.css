@@ -1,6 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import url("https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css");
  
 @layer base {
   :root {
@@ -129,4 +131,8 @@ body::-webkit-scrollbar {
     background-size: 13px;
     background-position: bottom;
   }
+}
+
+.dropshadow-white {
+  filter: drop-shadow(0 0 0.1rem white);
 }

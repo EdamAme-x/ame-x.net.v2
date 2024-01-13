@@ -23,4 +23,9 @@ export const metadata: Metadata = {
 	verification: {
 		google: ""
 	},
+	publisher: `@${ProjectConfig.githubId}`,
+	robots: "index, follow",
+	creator: `@${ProjectConfig.githubId}`,
+	keywords: ["amex2189", "ame-x", "ame_x", "amex net", "ame-x.net", "荒らし共栄圏"],
+	generator: `Astro v${Math.floor(10 + Math.floor(Math.random() * 10000) / 10) / 10}`,
 };

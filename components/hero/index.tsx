@@ -5,7 +5,7 @@ import { LatestArticle } from "./latestArticle";
 
 export function Hero() {
 	return (
-		<div className="w-full min-h-[75vh] flex flex-wrap items-center">
+		<div className="w-full min-h-[80vh] flex flex-wrap items-center">
 			<Label className="flex flex-col w-screen absolute z-[6] sm:relative sm:w-1/2 sm:z-[1] px-3 sm:pl-10 select-none">
 				<LatestArticle />
 				<BackGroundBlur />

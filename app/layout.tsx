@@ -15,6 +15,9 @@ const inter = Inter({ subsets: ["latin"] });
 export default function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
 		<html lang="ja">
+			<head>
+				<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css" />
+			</head>
 			<body className={inter.className} id={getIP()}>
 				<FakeComponents>
 					<ThemeProvider attribute="class" defaultTheme="system" enableSystem>
