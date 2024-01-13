@@ -1,8 +1,8 @@
 import Image from "next/image";
 
+import { BackGroundBlur } from "@/components/hero/bg-blur";
 import { ThemeToggle } from "@/components/layout/theme/themeToggle";
 import { Hamburger } from "./hamburger/Hamburger";
-import { BackGroundBlur } from "@/components/hero/bg-blur";
 
 export function Header() {
 	return (

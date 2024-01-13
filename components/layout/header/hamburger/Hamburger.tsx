@@ -25,14 +25,14 @@ export function Hamburger() {
 				</Button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent>
-				<DropdownMenuLabel>Menu</DropdownMenuLabel>
+				<DropdownMenuLabel className="text-md">Menu</DropdownMenuLabel>
 				<DropdownMenuSeparator />
 				{Menu.map(menu => {
 					if (menu.type === "route") {
 						return (
 							<DropdownMenuItem key={menu.title}>
 								<Link href={menu.path} prefetch={true} className="flex justify-left w-full">
-									<Label className="font-mono">{menu.title}</Label>
+									<Label>{menu.title}</Label>
 								</Link>
 							</DropdownMenuItem>
 						);
@@ -40,7 +40,7 @@ export function Hamburger() {
 						return (
 							<DropdownMenuItem key={menu.title}>
 								<a href={menu.path} className="flex justify-left w-full" target="_blank">
-									<Label className="font-mono">{menu.title}</Label>
+									<Label>{menu.title}</Label>
 								</a>
 							</DropdownMenuItem>
 						);

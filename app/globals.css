@@ -82,3 +82,51 @@ body::-webkit-scrollbar {
   background-clip: text; 
   color: transparent;
 }
+
+.border-gradient {
+  border-image: linear-gradient(100deg, #7f7fff, #7fff7f);
+  border-image-slice: 1;
+}
+
+.background-gradient {
+  background: linear-gradient(100deg, hsla(240, 100%, 75%, 0.1), hsl(120, 100%, 75%, 0.1));
+}
+
+.icon-javascript, .icon-typescript {
+  margin-right: 1px;
+}
+
+.icon-javascript::before {
+  content: "____";
+  width: 16px;
+  height: 16px;
+  background-image: url(/icon/3d/javascript.3d.svg);
+  background-size: 16px;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: transparent;
+  margin-top: 12.5px;
+  margin-right: -1px;
+}
+
+.icon-typescript::before {
+  content: "____";
+  width: 16px;
+  height: 16px;
+  background-image: url(/icon/3d/typescript.3d.svg);
+  background-size: 16px;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: transparent;
+  margin-top: 12.5px;
+  margin-right: -1px;
+}
+
+@media (max-width: 428px) {
+  .icon-javascript::before, .icon-typescript::before {
+    width: 13px;
+    height: 13px;
+    background-size: 13px;
+    background-position: bottom;
+  }
+}
