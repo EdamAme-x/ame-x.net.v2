@@ -1,15 +1,23 @@
 "use client";
 
 import { Fragment, useEffect, useState } from "react";
+import { ProjectConfig } from "@/data/config";
 import { parseCurlToRequest } from "@/utils/parse/parseCurlToFetch";
+import hljs from "highlight.js/lib/core";
+import json from "highlight.js/lib/languages/json";
 import Terminal, { ColorMode, TerminalOutput } from "react-terminal-ui";
 
 import { isClient } from "./../../../utils/fingerprint/isClient";
+
+hljs.registerLanguage("json", json);
 
 export function Shell() {
 	return (
 		<div className="w-full h-[300px]">
 			<ShellTerminal />
+            <style>
+                {`.hljs{display:block;overflow-x:auto;padding:.5em;background:#282a36}.hljs-built_in,.hljs-link,.hljs-section,.hljs-selector-tag{color:#8be9fd}.hljs-keyword{color:#ff79c6}.hljs,.hljs-subst{color:#f8f8f2}.hljs-attr,.hljs-meta-keyword,.hljs-title{font-style:italic;color:#50fa7b}.hljs-addition,.hljs-bullet,.hljs-meta,.hljs-name,.hljs-string,.hljs-symbol,.hljs-template-tag,.hljs-template-variable,.hljs-type,.hljs-variable{color:#f1fa8c}.hljs-comment,.hljs-deletion,.hljs-quote{color:#6272a4}.hljs-doctag,.hljs-keyword,.hljs-literal,.hljs-name,.hljs-section,.hljs-selector-tag,.hljs-strong,.hljs-title,.hljs-type{font-weight:700}.hljs-literal,.hljs-number{color:#bd93f9}.hljs-emphasis{font-style:italic}`}
+            </style>
 		</div>
 	);
 }
@@ -17,7 +25,7 @@ export function Shell() {
 function ShellTerminal() {
 	const [terminalLineData, setTerminalLineData] = useState([
 		<Fragment key={0}>
-			<TerminalOutput>Welcome to the Amex Shell!</TerminalOutput>
+			<TerminalOutput>{`Welcome to the Amex Shell!\nhelp can be found at \`$ help\``}</TerminalOutput>
 		</Fragment>
 	]);
 
@@ -34,11 +42,11 @@ function ShellTerminal() {
 		return <></>;
 	}
 
-	let latestCommand: string | false = terminalLineData[
-		terminalLineData.length - 1
-	].props.children.props.children.startsWith("$")
-		? terminalLineData[terminalLineData.length - 1].props.children.props.children
-		: false;
+	let latestCommand: string | false =
+		typeof terminalLineData[terminalLineData.length - 1].props.children.props.children === "string" &&
+		terminalLineData[terminalLineData.length - 1].props.children.props.children.startsWith("$")
+			? terminalLineData[terminalLineData.length - 1].props.children.props.children
+			: false;
 	if (latestCommand) {
 		const latestCommandArray = latestCommand.split("$ ").reverse();
 		latestCommandArray.pop();
@@ -48,7 +56,7 @@ function ShellTerminal() {
 			case "clear":
 				setTerminalLineData([
 					<Fragment key={terminalLineData.length + 1}>
-						<TerminalOutput>{"Welcome to the Amex Shell!"}</TerminalOutput>
+						<TerminalOutput>{"Welcome to the Amex Shell!\nhelp can be found at `$ help`"}</TerminalOutput>
 					</Fragment>
 				]);
 				break;
@@ -169,25 +177,31 @@ ${" " + `-`.repeat(len + 2)}
 				})
 					.then(res => {
 						if (res.ok) {
-                            res.text().then(text => {
-                                try {
-                                    const result = JSON.parse(text);
+							res.text().then(text => {
+								try {
+									const result = JSON.parse(text);
 
-                                    setTerminalLineData([
-                                        ...terminalLineData,
-                                        <Fragment key={terminalLineData.length + 1}>
-                                            <TerminalOutput>{JSON.stringify(result, null, 2)}</TerminalOutput>
-                                        </Fragment>
-                                    ])
-                                } catch (_e) {
-                                    setTerminalLineData([
-                                        ...terminalLineData,
-                                        <Fragment key={terminalLineData.length + 1}>
-                                            <TerminalOutput>{text}</TerminalOutput>
-                                        </Fragment>
-                                    ]);
-                                }
-                            })
+									setTerminalLineData([
+										...terminalLineData,
+										<Fragment key={terminalLineData.length + 1}>
+											<TerminalOutput>
+												<div
+													dangerouslySetInnerHTML={{
+														__html: hljs.highlight("json", JSON.stringify(result, null, 2))
+															.value
+													}}></div>
+											</TerminalOutput>
+										</Fragment>
+									]);
+								} catch (_e) {
+									setTerminalLineData([
+										...terminalLineData,
+										<Fragment key={terminalLineData.length + 1}>
+											<TerminalOutput>{text}</TerminalOutput>
+										</Fragment>
+									]);
+								}
+							});
 						} else {
 							setTerminalLineData([
 								...terminalLineData,
@@ -201,11 +215,59 @@ ${" " + `-`.repeat(len + 2)}
 						setTerminalLineData([
 							...terminalLineData,
 							<Fragment key={terminalLineData.length + 1}>
-								<TerminalOutput>{`Amex shell: ANY ERROR ;; (CORS, Redirect, etc...)`}</TerminalOutput>
+								<TerminalOutput>{`Amex shell: ANY ERROR ;; (CORS, Redirect, 404, etc...)`}</TerminalOutput>
 							</Fragment>
 						]);
 					});
 
+				break;
+			case "help":
+				const helps: {
+					name: string;
+					description: string;
+				}[] = [
+					{
+						name: "curl",
+						description: "communication with url command"
+					},
+					{
+						name: "whoami",
+						description: "who am I (show IP)"
+					},
+					{
+						name: "reload",
+						description: "reload the page"
+					},
+					{
+						name: "echo",
+						description: "echo <text>"
+					},
+					{
+						name: "help",
+						description: "show help"
+					},
+					{
+						name: "cowsay <text>",
+						description: "Let the cow ASCII art speak"
+					},
+					{
+						name: "node",
+						description: "node <script> (as (deno|bun))"
+					}
+				];
+				setTerminalLineData([
+					...terminalLineData,
+					...helps.map((help, i) => {
+						return (
+							<Fragment key={terminalLineData.length + i + 1}>
+								<TerminalOutput>{` \$ ${help.name} - ${help.description}`}</TerminalOutput>
+							</Fragment>
+						);
+					}),
+					<Fragment key={terminalLineData.length + helps.length + 1}>
+						<TerminalOutput>{` Please send feature requests to @${ProjectConfig.twitterId} :)`}</TerminalOutput>
+					</Fragment>
+				]);
 				break;
 			default:
 				setTerminalLineData([

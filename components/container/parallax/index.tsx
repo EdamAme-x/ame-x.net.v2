@@ -80,7 +80,7 @@ function ParallaxBackGround() {
 		<div className="absolute top-[600px] w-full h-screen z-[-1]" ref={triggerRef}>
 			<IconObject name="nextjs/nextjs-original" className="relative top-[120px] left-[2.5vw]" />
 			<IconObject
-				name="angularjs/angularjs-plain"
+				name="github/github-original"
 				className="relative top-[100px] left-[97.5%] translate-x-[-100%]"
 			/>
 			<IconObject name="react/react-original" className="relative top-[120px] left-[3vw]" />
