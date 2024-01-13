@@ -94,6 +94,7 @@ function ParallaxBackGround() {
 			/>
 			<IconObject name="nodejs/nodejs-plain" className="relative top-[100px] left-[97.5%] translate-x-[-100%]" />
 			<IconObject name="vscode/vscode-original" className="relative top-[120px] left-[2.5vw]" />
+			<IconObject name="bash/bash-plain" className="relative top-[100px] left-[97.5%] translate-x-[-100%]" />
 		</div>
 	);
 }

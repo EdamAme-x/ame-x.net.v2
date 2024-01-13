@@ -69,13 +69,17 @@
   }
 }
 
-body {
+body, .react-terminal {
   scrollbar-width: 0;
   overflow-x: hidden;
 }
 
-body::-webkit-scrollbar {
+body::-webkit-scrollbar, .react-terminal::-webkit-scrollbar {
   display: none;
+}
+
+.overflow-y-none {
+  overflow-y: none;
 }
 
 .text-gradient {
