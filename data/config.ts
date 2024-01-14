@@ -5,5 +5,5 @@ export const ProjectConfig = {
 	discordUserId: "krswkrs",
 	zennId: "ame_x",
 	url: "https://ame-x.net",
-	iconUri: "https://avatars.githubusercontent.com/u/121654029?v=4"
+	iconUri: "https://github.com/EdamAme-x.png"
 } as const;

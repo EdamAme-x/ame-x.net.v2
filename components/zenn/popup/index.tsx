@@ -73,7 +73,7 @@ export function ZennPopupContent({ getArticle }: { getArticle: () => Promise<Art
 	);
 }
 
-function CreateContext(props: { emoji: string; title: string; like: string; comments: string; date: string }) {
+export function CreateContext(props: { emoji: string; title: string; like: string; comments: string; date: string }) {
 	return (
 		<>
 			<div className="flex w-full items-center mt-5">
@@ -82,8 +82,8 @@ function CreateContext(props: { emoji: string; title: string; like: string; comm
 					<CardHeader className="p-5 pt-2 pb-1">
 						<CardTitle className="text-sm opacity-[0.8] leading-3 py-2">Title</CardTitle>
 					</CardHeader>
-					<CardContent className="text-xs sm:text-sm">
-						{props.title.length > 45 ? props.title.slice(0, 45) + "..." : props.title}
+					<CardContent className="text-xs sm:text-sm max-h-[105px]">
+						{props.title.length > 35 ? props.title.slice(0, 35) + "..." : props.title}
 					</CardContent>
 				</Card>
 			</div>

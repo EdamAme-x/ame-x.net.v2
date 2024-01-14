@@ -1,6 +1,5 @@
 "use client";
 
-import { Fragment, useState } from "react";
 import { zennRPC } from "@/backend";
 import { isClient } from "@/utils/fingerprint/isClient";
 import { hc } from "hono/client";

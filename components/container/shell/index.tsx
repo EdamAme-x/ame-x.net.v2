@@ -2,22 +2,21 @@
 
 import { Fragment, useEffect, useState } from "react";
 import { ProjectConfig } from "@/data/config";
+import { isClient } from "@/utils/fingerprint/isClient";
 import { parseCurlToRequest } from "@/utils/parse/parseCurlToFetch";
 import hljs from "highlight.js/lib/core";
 import json from "highlight.js/lib/languages/json";
 import Terminal, { ColorMode, TerminalOutput } from "react-terminal-ui";
 
-import { isClient } from "./../../../utils/fingerprint/isClient";
-
 hljs.registerLanguage("json", json);
 
 export function Shell() {
 	return (
-		<div className="w-full h-[300px]">
+		<div className="w-full h-[0px] md:h-[410px]">
 			<ShellTerminal />
-            <style>
-                {`.hljs{display:block;overflow-x:auto;padding:.5em;background:#282a36}.hljs-built_in,.hljs-link,.hljs-section,.hljs-selector-tag{color:#8be9fd}.hljs-keyword{color:#ff79c6}.hljs,.hljs-subst{color:#f8f8f2}.hljs-attr,.hljs-meta-keyword,.hljs-title{font-style:italic;color:#50fa7b}.hljs-addition,.hljs-bullet,.hljs-meta,.hljs-name,.hljs-string,.hljs-symbol,.hljs-template-tag,.hljs-template-variable,.hljs-type,.hljs-variable{color:#f1fa8c}.hljs-comment,.hljs-deletion,.hljs-quote{color:#6272a4}.hljs-doctag,.hljs-keyword,.hljs-literal,.hljs-name,.hljs-section,.hljs-selector-tag,.hljs-strong,.hljs-title,.hljs-type{font-weight:700}.hljs-literal,.hljs-number{color:#bd93f9}.hljs-emphasis{font-style:italic}`}
-            </style>
+			<style>
+				{`.hljs{display:block;overflow-x:auto;padding:.5em;background:#282a36}.hljs-built_in,.hljs-link,.hljs-section,.hljs-selector-tag{color:#8be9fd}.hljs-keyword{color:#ff79c6}.hljs,.hljs-subst{color:#f8f8f2}.hljs-attr,.hljs-meta-keyword,.hljs-title{font-style:italic;color:#50fa7b}.hljs-addition,.hljs-bullet,.hljs-meta,.hljs-name,.hljs-string,.hljs-symbol,.hljs-template-tag,.hljs-template-variable,.hljs-type,.hljs-variable{color:#f1fa8c}.hljs-comment,.hljs-deletion,.hljs-quote{color:#6272a4}.hljs-doctag,.hljs-keyword,.hljs-literal,.hljs-name,.hljs-section,.hljs-selector-tag,.hljs-strong,.hljs-title,.hljs-type{font-weight:700}.hljs-literal,.hljs-number{color:#bd93f9}.hljs-emphasis{font-style:italic}`}
+			</style>
 		</div>
 	);
 }
@@ -122,15 +121,24 @@ ${" " + `-`.repeat(len + 2)}
 					result += `\ne.g.: \`${latestCommand.split(" ")[0]}  11 * 199\` :(`;
 				}
 
-				setTerminalLineData([
-					...terminalLineData,
-					<Fragment key={terminalLineData.length + 1}>
-						<TerminalOutput>{`fake ${latestCommand.split(" ")[0]} version: -1.0 :(`}</TerminalOutput>
-					</Fragment>,
-					<Fragment key={terminalLineData.length + 2}>
-						<TerminalOutput>{result.toString()}</TerminalOutput>
-					</Fragment>
-				]);
+				try {
+					setTerminalLineData([
+						...terminalLineData,
+						<Fragment key={terminalLineData.length + 1}>
+							<TerminalOutput>{`fake ${latestCommand.split(" ")[0]} version: -1.0 :(`}</TerminalOutput>
+						</Fragment>,
+						<Fragment key={terminalLineData.length + 2}>
+							<TerminalOutput>{result.toString()}</TerminalOutput>
+						</Fragment>
+					]);
+				} catch {
+					setTerminalLineData([
+						...terminalLineData,
+						<Fragment key={terminalLineData.length + 1}>
+							<TerminalOutput>{`unknown error`}</TerminalOutput>
+						</Fragment>
+					]);
+				}
 
 				break;
 			case "reload":

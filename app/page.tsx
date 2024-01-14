@@ -1,6 +1,7 @@
 import { Parallax } from "@/components/container/parallax";
 import { SelfIntro } from "@/components/container/self-introduction";
 import { Shell } from "@/components/container/shell";
+import { ZennArticles } from "@/components/container/zenn-articles";
 import { Hero } from "@/components/hero";
 import { SEO } from "@/components/seo";
 
@@ -12,6 +13,7 @@ export default function Home() {
 			<SelfIntro />
 			<Parallax />
 			<Shell />
+			<ZennArticles />
 		</>
 	);
 }

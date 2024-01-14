@@ -12,8 +12,6 @@ export const candoList = [
 				<p>
 					This site was created by combining <b className="mx-1">Next.js</b> with various frameworks.
 				</p>
-				<p className="mt-1">Of course, this is not the only one :)</p>
-				<p>Please put next button.</p>
 			</div>
 		),
 		button: (
@@ -74,7 +72,6 @@ export const candoList = [
 				<p>
 					Users reached <b className="mx-1">5,000</b> per day and SEO rose to first place.
 				</p>
-				<p className="mt-1">Other tools can be created for various platforms.</p>
 			</div>
 		),
 		button: (
