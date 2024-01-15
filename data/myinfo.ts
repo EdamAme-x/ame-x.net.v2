@@ -8,7 +8,7 @@ export const MyInfo = {
 	githubId: `@${ProjectConfig.githubId}`,
 	discordId: `@${ProjectConfig.discordUserId}`,
 	zennId: `@${ProjectConfig.zennId}`,
-	message: "please follow me on Twitter @amex2189 :)",
+	message: `please follow me on Twitter @${ProjectConfig.twitterId} :)`,
 	height: "82161242827b703e6acf9c726942a1e4",
 	age: 14,
 	ltc: "ltc1qj3f3ragm568j7lw062743w6r4k7n929ddjgq6r",

@@ -294,9 +294,9 @@ ${" " + `-`.repeat(len + 2)}
 				name="Amex Shell"
 				colorMode={ColorMode.Dark}
 				onInput={terminalInput => {
-                    if (terminalInput.trim() === "") {
-                        return;
-                    }
+					if (terminalInput.trim() === "") {
+						return;
+					}
 
 					setTerminalLineData([
 						...terminalLineData,

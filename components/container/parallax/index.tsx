@@ -30,7 +30,9 @@ export function Parallax() {
 												<CardContent className="flex flex-col justify-center aspect-square">
 													<Label className="text-xl font-bold mt-4">{cando.title}</Label>
 													<hr className="mt-1" />
-													<div className="mt-3 text-xs sm:text-sm leading-5">{cando.description}</div>
+													<div className="mt-3 text-xs sm:text-sm leading-5">
+														{cando.description}
+													</div>
 													<div className="mt-auto">{cando.button}</div>
 												</CardContent>
 											</Card>

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { ProjectConfig } from "@/data/config";
 import { allSameValue } from "@/utils/array/allSameValue";
 import { isClient } from "@/utils/fingerprint/isClient";
 
@@ -130,7 +131,9 @@ export function Hero3D() {
 							<AlertDialogAction
 								onClick={() => {
 									window.open(
-										`https://twitter.com/intent/tweet?text=${encodeURIComponent(`@amex2189
+										`https://twitter.com/intent/tweet?text=${encodeURIComponent(`@${
+											ProjectConfig.twitterId
+										}
 私は ${result[0]
 											.split("/")
 											.pop()

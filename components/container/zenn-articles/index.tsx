@@ -74,7 +74,9 @@ function ZennArticlesResult() {
 													comments={article.comments_count}
 													date={article.proxy.date.split(" ")[0]}
 												/>
-												<Button className="mx-1 w-full" onClick={() => openArticle(article.proxy.url)}>
+												<Button
+													className="mx-1 w-full"
+													onClick={() => openArticle(article.proxy.url)}>
 													Read
 												</Button>
 											</CardContent>
