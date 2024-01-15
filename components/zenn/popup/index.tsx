@@ -40,8 +40,8 @@ export function ZennPopupFallback() {
 			<CreateContext
 				title="Loading..."
 				emoji="🤔"
-				like="218"
-				comments="9"
+				like={218}
+				comments={9}
 				date={new Date().toLocaleString().split(" ")[0]}
 			/>
 			<Button className="mx-1">Read</Button>
@@ -62,8 +62,8 @@ export function ZennPopupContent({ getArticle }: { getArticle: () => Promise<Art
 			<CreateContext
 				title={result.then(article => article.title) as unknown as string}
 				emoji={result.then(article => article.emoji) as unknown as string}
-				like={result.then(article => article.liked_count) as unknown as string}
-				comments={result.then(article => article.comments_count) as unknown as string}
+				like={result.then(article => article.liked_count) as unknown as number}
+				comments={result.then(article => article.comments_count) as unknown as number}
 				date={result.then(article => article.proxy.date.split(" ")[0]) as unknown as string}
 			/>
 			<Button className="mx-1" onClick={() => openArticle()}>
@@ -73,7 +73,7 @@ export function ZennPopupContent({ getArticle }: { getArticle: () => Promise<Art
 	);
 }
 
-export function CreateContext(props: { emoji: string; title: string; like: string; comments: string; date: string }) {
+export function CreateContext(props: { emoji: string; title: string; like: number; comments: number; date: string }) {
 	return (
 		<>
 			<div className="flex w-full items-center mt-5">

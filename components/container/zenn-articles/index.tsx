@@ -33,8 +33,8 @@ function ZennArticlesFallback() {
 								<CreateContext
 									title="Loading..."
 									emoji="🤔"
-									like="218"
-									comments="9"
+									like={218}
+									comments={9}
 									date={new Date().toLocaleString().split(" ")[0]}
 								/>
 								<Button className="mx-1 w-full">Read</Button>
@@ -70,8 +70,8 @@ function ZennArticlesResult() {
 												<CreateContext
 													title={article.title}
 													emoji={article.emoji}
-													like={article.liked_count.toString()}
-													comments={article.comments_count.toString()}
+													like={article.liked_count}
+													comments={article.comments_count}
 													date={article.proxy.date.split(" ")[0]}
 												/>
 												<Button className="mx-1 w-full" onClick={() => openArticle(article.proxy.url)}>
