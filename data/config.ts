@@ -5,7 +5,7 @@ const ProjectConfigBase = {
 	discordUserId: "krswkrs",
 	zennId: "ame_x",
 	url: "https://ame-x.net",
-	keywords: ["amex2189", "ame-x", "ame_x", "amex net", "ame-x.net", "荒らし共栄圏"],
+	keywords: ["amex2189", "ame-x", "ame_x", "amex net", "ame-x.net", "荒らし共栄圏"]
 };
 
 export const ProjectConfig = {

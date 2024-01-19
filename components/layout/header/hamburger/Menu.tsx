@@ -1,13 +1,13 @@
 import { ProjectConfig } from "@/data/config";
 import { SocialIcon } from "react-social-icons";
 
-type MenuContext = {
+export type MenuContext = {
 	type: "route" | "external";
 	path: string;
 	title: string;
 }[];
 
-type SNSContext = {
+export type SNSContext = {
 	path: string;
 	title: string;
 }[];

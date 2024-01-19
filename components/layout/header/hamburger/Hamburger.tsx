@@ -31,7 +31,7 @@ export function Hamburger() {
 					if (menu.type === "route") {
 						return (
 							<DropdownMenuItem key={menu.title}>
-								<Link href={menu.path} prefetch={true} className="flex justify-left w-full">
+								<Link href={menu.path} prefetch className="flex justify-left w-full">
 									<Label>{menu.title}</Label>
 								</Link>
 							</DropdownMenuItem>
