@@ -16,6 +16,8 @@ type: global
   - [README](/README.md)
   - プログラミング始めて半年
 
+没
+
 **Angular**で作った [ame-x.net](https://github.com/EdamAme-x/ame-x.net) の v2
 
 ## Techs
